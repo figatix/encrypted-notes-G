@@ -20,19 +20,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -f EncryptedNotebook-project-v4.zip || {
-            echo "ERROR: EncryptedNotebook-project-v4.zip must be in the repository root." >&2
+          test -f EncryptedNotebook-project-v4.1.zip || {
+            echo "ERROR: EncryptedNotebook-project-v4.1.zip must be in the repository root." >&2
             ls -la
             exit 1
           }
-          unzip -t EncryptedNotebook-project-v4.zip
+          unzip -t EncryptedNotebook-project-v4.1.zip
 
       - name: Extract project archive
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p extracted
-          unzip -q EncryptedNotebook-project-v4.zip -d extracted
+          unzip -q EncryptedNotebook-project-v4.1.zip -d extracted
           test -f extracted/EncryptedNotebook/settings.gradle.kts
           test -f extracted/EncryptedNotebook/app/build.gradle.kts
           echo "PROJECT_DIR=$GITHUB_WORKSPACE/extracted/EncryptedNotebook" >> "$GITHUB_ENV"
@@ -80,7 +80,7 @@ jobs:
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: encrypted-notebook-v4-debug-apk
+          name: encrypted-notebook-v4.1-debug-apk
           path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
